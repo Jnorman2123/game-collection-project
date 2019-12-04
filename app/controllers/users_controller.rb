@@ -28,8 +28,9 @@ class UsersController < ApplicationController
     redirect 'users/login'
   end
 
-  get '/users/logout' do
-
+  post '/users/logout' do
+    session.clear
+    binding.pry
     redirect '/'
   end
 

@@ -2,7 +2,6 @@ class ConsolesController < ApplicationController
 
   get '/consoles/wishlist' do
     redirect_if_not_logged_in
-    binding.pry
     @consoles = Console.all
     erb :"/consoles/wishlist"
   end
@@ -16,11 +15,16 @@ class ConsolesController < ApplicationController
 
   get '/consoles/owned' do
     redirect_if_not_logged_in
+    @consoles = Console.all
+    binding.pry
     erb :"/consoles/owned"
   end
 
   post '/consoles/owned' do
     redirect_if_not_logged_in
+    console = Console.find_by_id(params[:console_id])
+    console.user_id = current_user.id
+    console.save
     redirect :"/consoles/owned"
   end
 

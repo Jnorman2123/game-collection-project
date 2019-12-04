@@ -1,13 +1,18 @@
 <h1>This is your console wishlist</h1>
 
-<ol>
+<h2>Add purchased consoles to your owned list</h2>
+<br>
+<form method="POST" action="/consoles/owned">
   <% @consoles.each do |console| %>
     <% if console.user_id == nil %>
-    <li><%= console.name %></li>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>"><%= console.name %></input><br>
     <% end %>
   <% end %>
-</ol>
 
+  <input type="submit" value="Add Selected Console(s) to Owned">
+</form>
+<br>
+<h2>Add a new console to your wishlist</h2>
 <form method="POST" action="/consoles/wishlist">
 
   <label for="name">Name:<label>

@@ -1,0 +1,7 @@
+<h1>These are your consoles</h1>
+
+<% @consoles.each do |console| %>
+  <% if console.user_id != nil %>
+    <%= console.name %><br>
+  <% end %>
+<% end %>

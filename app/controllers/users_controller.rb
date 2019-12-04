@@ -1,33 +1,34 @@
 class UsersController < ApplicationController
 
-  get '/login' do
+  get '/users/login' do
     redirect_if_logged_in
     erb :"/users/login"
   end
 
-  post '/login' do
-
-    redirect '/home'
+  post '/users/login' do
+    user = User.find_by_name(params[:name])
+    session[:user_id] = user.id
+    redirect "/users/#{user.id}"
   end
 
-  get '/home' do
+  get '/users/:id' do
     redirect_if_not_logged_in
+    @user = User.find_by_id(params[:id])
     erb :"/users/home"
   end
 
-  get '/signup' do
+  get '/users/signup' do
     redirect_if_logged_in
     erb :"/users/signup"
   end
 
-  post '/signup' do
-    binding.pry
+  post '/users/signup' do
     user = User.new(params)
     user.save
-    redirect '/login'
+    redirect 'users/login'
   end
 
-  get '/logout' do
+  get '/users/logout' do
 
     redirect '/'
   end

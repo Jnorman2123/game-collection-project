@@ -30,7 +30,8 @@ class ApplicationController < Sinatra::Base
 
     def redirect_if_logged_in
       if logged_in?
-        redirect "/home"
+        user = User.find_by_id(params[:id])
+        redirect "users/#{user.id}"
       end
     end
   end

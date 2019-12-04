@@ -30,7 +30,6 @@ class UsersController < ApplicationController
 
   post '/users/logout' do
     session.clear
-    binding.pry
     redirect '/'
   end
 

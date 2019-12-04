@@ -1,3 +1,4 @@
 class Game < ActiveRecord::Base
-
-end 
+  belongs_to :user
+  belongs_to :console
+end

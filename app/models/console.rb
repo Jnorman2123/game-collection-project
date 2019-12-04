@@ -1,3 +1,4 @@
 class Console < ActiveRecord::Base
-
-end 
+  belongs_to :user
+  has_many :games
+end

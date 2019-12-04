@@ -2,11 +2,15 @@ class ConsolesController < ApplicationController
 
   get '/consoles/wishlist' do
     redirect_if_not_logged_in
+    binding.pry
+    @consoles = Console.all
     erb :"/consoles/wishlist"
   end
 
   post '/consoles/wishlist' do
     redirect_if_not_logged_in
+    console = Console.new(params)
+    console.save
     redirect "/consoles/wishlist"
   end
 

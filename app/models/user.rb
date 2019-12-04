@@ -1,3 +1,5 @@
 class User < ActiveRecord::Base
-
-end 
+  has_secure_password
+  has_many :consoles
+  has_many :games
+end

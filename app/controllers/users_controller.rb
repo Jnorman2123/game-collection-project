@@ -21,8 +21,10 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-
-    redirect '/home'
+    binding.pry
+    user = User.new(params)
+    user.save
+    redirect '/login'
   end
 
   get '/logout' do

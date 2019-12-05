@@ -39,7 +39,12 @@ class ConsolesController < ApplicationController
   delete '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
-    @console.delete
-    redirect '/consoles/owned'
+    if @console.user_id != nil
+      @console.delete
+      redirect '/consoles/owned'
+    else
+      @console.delete
+      redirect '/consoles/wishlist'
+    end
   end
 end

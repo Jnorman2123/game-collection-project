@@ -12,6 +12,7 @@
 
   </form>
   <br>
+  <h3><a href="/games/owned">Return to your owned games list</a></h3>
 <% end  %>
 <% if @game.user_id == nil %>
   <h2>This game is on your wishlist</h2>
@@ -23,5 +24,6 @@
 
   </form>
   <br>
+  <h3><a href="/games/wishlist">Return to your games wishlist</a></h3>
 <% end %>
-<h3><a href="/games/owned">Return to your owned games list</a></h3>
+<h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>

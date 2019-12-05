@@ -31,6 +31,7 @@ class ConsolesController < ApplicationController
 
   get '/consoles/:id' do
     redirect_if_not_logged_in
+    @user = current_user
     @console = Console.find_by_id(params[:id])
     erb :"/consoles/show"
   end

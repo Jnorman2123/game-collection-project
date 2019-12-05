@@ -31,6 +31,7 @@ class GamesController < ApplicationController
 
   get '/games/:id' do
     redirect_if_not_logged_in
+    @user = current_user
     @game = Game.find_by_id(params[:id])
     erb :"/games/show"
   end

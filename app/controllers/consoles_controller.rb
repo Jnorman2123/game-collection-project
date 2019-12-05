@@ -15,7 +15,9 @@ class ConsolesController < ApplicationController
 
   get '/consoles/owned' do
     redirect_if_not_logged_in
+    @user = current_user
     @consoles = Console.all
+    binding.pry
     erb :"/consoles/owned"
   end
 

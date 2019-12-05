@@ -22,6 +22,7 @@ class GamesController < ApplicationController
   get '/games/owned' do
     redirect_if_not_logged_in
     @user = current_user
+    @consoles = @user.consoles
     @games = Game.all
     erb :"/games/owned"
   end

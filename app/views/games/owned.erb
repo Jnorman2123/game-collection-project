@@ -9,6 +9,12 @@
 <h2>Add a new game to your owned list</h2>
 <form method="POST" action="/games/owned">
 
+  <% @consoles.each do |console| %>
+    <% if console.user_id != nil %>
+      <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
+    <% end %>
+  <% end %>
+
   <label for="name">Name:<label>
   <input type="text" name="name">
 

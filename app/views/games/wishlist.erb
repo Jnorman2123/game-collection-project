@@ -11,7 +11,7 @@
   <h3>Select which console the game is on</h3>
   <% @consoles.each do |console| %>
     <% if console.user_id != nil %>
-    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
+      <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
     <% end %>
   <% end %>
 

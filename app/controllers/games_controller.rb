@@ -23,10 +23,16 @@ class GamesController < ApplicationController
 
   post '/games/owned' do
     redirect_if_not_logged_in
-    game = Game.find_by_id(params[:game_id])
-    game.user_id = current_user.id
-    game.save
-    redirect :"/games/owned"
+    if game = Game.find_by_id(params[:id])
+      game.user_id = current_user.id
+      game.save
+      redirect :"/games/owned"
+    else
+      new_game = Game.create(params)
+      new_game.user_id = current_user.id
+      new_game.save
+      redirect :"/games/owned"
+    end
   end
 
   get '/games/:id' do

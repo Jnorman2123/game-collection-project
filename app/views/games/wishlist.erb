@@ -5,7 +5,7 @@
 <form method="POST" action="/games/owned">
   <% @games.each do |game| %>
     <% if game.user_id == nil %>
-    <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>"><a href="/games/<%= game.id %>"><%= game.name %></a></input><br>
+    <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>"><a href="/games/<%= game.id %>"><%= game.name %></a> Price: $<%= game.price %></input><br>
     <% end %>
   <% end %>
   <h3>Select which console the game is on</h3>

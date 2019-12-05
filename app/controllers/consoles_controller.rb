@@ -2,6 +2,7 @@ class ConsolesController < ApplicationController
 
   get '/consoles/wishlist' do
     redirect_if_not_logged_in
+    @user = current_user
     @consoles = Console.all
     erb :"/consoles/wishlist"
   end

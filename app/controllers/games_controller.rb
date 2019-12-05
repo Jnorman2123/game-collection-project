@@ -11,8 +11,12 @@ class GamesController < ApplicationController
   post '/games/wishlist' do
     redirect_if_not_logged_in
     game = Game.new(params)
-    game.save
-    redirect "/games/wishlist"
+    if !game.name.empty? && !game.price.empty?
+      game.save
+      redirect "/games/wishlist"
+    else
+      redirect "/games/wishlist"
+    end
   end
 
   get '/games/owned' do
@@ -28,12 +32,16 @@ class GamesController < ApplicationController
       game.user_id = current_user.id
       game.console_id = params[:console_id]
       game.save
-      redirect :"/games/owned"
+      redirect "/games/owned"
     else
-      new_game = Game.create(params)
-      new_game.user_id = current_user.id
-      new_game.save
-      redirect :"/games/owned"
+      if !params[:name].empty?
+        new_game = Game.create(params)
+        new_game.user_id = current_user.id
+        new_game.save
+        redirect "/games/owned"
+      else
+        redirect "/games/owned"
+      end
     end
   end
 
@@ -41,7 +49,6 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     @user = current_user
     @game = Game.find_by_id(params[:id])
-    binding.pry
     erb :"/games/show"
   end
 

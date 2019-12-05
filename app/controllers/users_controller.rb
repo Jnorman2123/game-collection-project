@@ -7,14 +7,12 @@ class UsersController < ApplicationController
 
   post '/users/login' do
     user = User.find_by_name(params[:name])
-    session[:user_id] = user.id
-    redirect "/users/#{user.id}"
-  end
-
-  get '/users/:id' do
-    redirect_if_not_logged_in
-    @user = User.find_by_id(params[:id])
-    erb :"/users/home"
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect "/users/#{user.id}"
+    else
+      redirect '/users/login'
+    end
   end
 
   get '/users/signup' do
@@ -23,14 +21,26 @@ class UsersController < ApplicationController
   end
 
   post '/users/signup' do
-    user = User.new(params)
-    user.save
-    redirect 'users/login'
+    if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
+      user = User.new(params)
+      user.save
+      redirect 'users/login'
+    else
+      redirect '/users/signup'
+    end
+  end
+
+  get '/users/:id' do
+    redirect_if_not_logged_in
+    @user = User.find_by_id(params[:id])
+    erb :"/users/home"
   end
 
   post '/users/logout' do
-    session.clear
-    redirect '/'
+    if logged_in?
+      session.clear
+      redirect '/'
+    end
   end
 
 end

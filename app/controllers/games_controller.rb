@@ -18,7 +18,6 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     @user = current_user
     @games = Game.all
-    binding.pry
     erb :"/games/owned"
   end
 

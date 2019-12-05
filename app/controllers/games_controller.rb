@@ -3,12 +3,14 @@ class GamesController < ApplicationController
   get '/games/wishlist' do
     redirect_if_not_logged_in
     @user = current_user
+    @consoles = Console.all
     @games = Game.all
     erb :"/games/wishlist"
   end
 
   post '/games/wishlist' do
     redirect_if_not_logged_in
+    binding.pry
     game = Game.new(params)
     game.save
     redirect "/games/wishlist"

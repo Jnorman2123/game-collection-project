@@ -8,6 +8,12 @@
     <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>"><a href="/games/<%= game.id %>"><%= game.name %></a></input><br>
     <% end %>
   <% end %>
+  <h3>Select which console the game is on</h3>
+  <% @consoles.each do |console| %>
+    <% if console.user_id != nil %>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>"><a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
+    <% end %>
+  <% end %>
 
   <input type="submit" value="Add Selected Game(s) to Owned">
 </form>
@@ -17,6 +23,9 @@
 
   <label for="name">Name:<label>
   <input type="text" name="name">
+
+  <label for="price">Price:<label>
+  <input type="text" name="price">
 
   <input type="submit" value="Add Game To Wishlist">
 </form>

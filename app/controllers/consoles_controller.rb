@@ -23,10 +23,16 @@ class ConsolesController < ApplicationController
 
   post '/consoles/owned' do
     redirect_if_not_logged_in
-    console = Console.find_by_id(params[:console_id])
-    console.user_id = current_user.id
-    console.save
-    redirect :"/consoles/owned"
+    if console = Console.find_by_id(params[:id])
+      console.user_id = current_user.id
+      console.save
+      redirect :"/consoles/owned"
+    else
+      new_console = Console.create(params)
+      new_console.user_id = current_user.id
+      new_console.save
+      redirect :"/consoles/owned"
+    end
   end
 
   get '/consoles/:id' do

@@ -5,7 +5,7 @@
 <form method="POST" action="/consoles/owned">
   <% @consoles.each do |console| %>
     <% if console.user_id == nil %>
-    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>"><a href="/consoles/<%= console.id %>"><%= console.name %></input><br>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>"><a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
     <% end %>
   <% end %>
 

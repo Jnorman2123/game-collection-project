@@ -6,5 +6,13 @@
   <% end %>
 <% end %>
 <br> 
+<h2>Add a new console to your owned list</h2>
+<form method="POST" action="/consoles/owned">
+
+  <label for="name">Name:<label>
+  <input type="text" name="name">
+
+  <input type="submit" value="Add Console To Owned">
+</form>
 <h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>
 <h2><a href="/consoles/wishlist">Go to your consoles wishlist</a></h2>

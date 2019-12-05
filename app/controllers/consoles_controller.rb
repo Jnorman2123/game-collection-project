@@ -16,7 +16,6 @@ class ConsolesController < ApplicationController
   get '/consoles/owned' do
     redirect_if_not_logged_in
     @consoles = Console.all
-    binding.pry
     erb :"/consoles/owned"
   end
 
@@ -30,6 +29,14 @@ class ConsolesController < ApplicationController
 
   get '/consoles/:id' do
     redirect_if_not_logged_in
-    erb :"/consoles/#{@console.id}"
+    @console = Console.find_by_id(params[:id])
+    erb :"/consoles/show"
+  end
+
+  delete '/consoles/:id' do
+    redirect_if_not_logged_in
+    @console = Console.find_by_id(params[:id])
+    @console.delete
+    redirect '/consoles/owned'
   end
 end

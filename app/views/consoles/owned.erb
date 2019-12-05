@@ -2,6 +2,7 @@
 
 <% @consoles.each do |console| %>
   <% if console.user_id != nil %>
-    <%= console.name %><br>
+    <a href="/consoles/<%= console.id %>"><%= console.name%></a><br>
   <% end %>
 <% end %>
+

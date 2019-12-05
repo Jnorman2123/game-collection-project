@@ -10,7 +10,6 @@ class GamesController < ApplicationController
 
   post '/games/wishlist' do
     redirect_if_not_logged_in
-    binding.pry
     game = Game.new(params)
     game.save
     redirect "/games/wishlist"
@@ -25,7 +24,8 @@ class GamesController < ApplicationController
 
   post '/games/owned' do
     redirect_if_not_logged_in
-    if game = Game.find_by_id(params[:id])
+    binding.pry
+    if game = Game.find_by_id(params[:game_id])
       game.user_id = current_user.id
       game.save
       redirect :"/games/owned"

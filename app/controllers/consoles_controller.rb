@@ -10,8 +10,12 @@ class ConsolesController < ApplicationController
   post '/consoles/wishlist' do
     redirect_if_not_logged_in
     console = Console.new(params)
-    console.save
-    redirect "/consoles/wishlist"
+    if !console.name.empty? && !console.price.empty?
+      console.save
+      redirect "/consoles/wishlist"
+    else
+      redirect "/consoles/wishlist"
+    end
   end
 
   get '/consoles/owned' do
@@ -28,10 +32,14 @@ class ConsolesController < ApplicationController
       console.save
       redirect :"/consoles/owned"
     else
-      new_console = Console.create(params)
-      new_console.user_id = current_user.id
-      new_console.save
-      redirect :"/consoles/owned"
+      if !params[:name].empty?
+        new_console = Console.create(params)
+        new_console.user_id = current_user.id
+        new_console.save
+        redirect :"/consoles/owned"
+      else
+        redirect :"/consoles/owned"
+      end
     end
   end
 

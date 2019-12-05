@@ -1,12 +1,27 @@
 <h1>Show page for this console</h1>
 
-<h3><%= @console.name %></h3> 
-<h2>Remove this console from owned list</h2>
+<h3><%= @console.name %></h3>
 
-<form action="/consoles/<%= @console.id %>" method="POST">
-  <input type="hidden" id="hidden" name="_method" value="DELETE">
-  <input type="submit" value="Remove">
+<% if @console.user_id != nil %>
+  <h2>You currently own this console</h2>
+  <h2>Remove this console from owned list</h2>
 
-</form>
-<br> 
-<h3><a href="/consoles/owned">Return to your owned consoles list</a></h3>
+  <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Remove">
+
+  </form>
+  <br>
+<% end  %>
+<% if @console.user_id == nil %>
+  <h2>This console is on your wishlist</h2>
+  <h2>Remove this console from wishlist</h2>
+
+  <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Remove">
+
+  </form>
+  <br>
+<% end %>
+<h3><a href="/games/owned">Return to your owned consoles list</a></h3>

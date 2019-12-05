@@ -26,6 +26,7 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     if game = Game.find_by_id(params[:game_id])
       game.user_id = current_user.id
+      game.console_id = params[:console_id]
       game.save
       redirect :"/games/owned"
     else
@@ -40,6 +41,7 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     @user = current_user
     @game = Game.find_by_id(params[:id])
+    binding.pry
     erb :"/games/show"
   end
 

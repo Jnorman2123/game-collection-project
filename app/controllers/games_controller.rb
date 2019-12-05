@@ -24,7 +24,6 @@ class GamesController < ApplicationController
 
   post '/games/owned' do
     redirect_if_not_logged_in
-    binding.pry
     if game = Game.find_by_id(params[:game_id])
       game.user_id = current_user.id
       game.save

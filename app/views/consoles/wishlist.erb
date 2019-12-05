@@ -5,7 +5,7 @@
 <form method="POST" action="/consoles/owned">
   <% @consoles.each do |console| %>
     <% if console.user_id == nil %>
-    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>"><a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a> Price: $<%= console.price %></input><br>
     <% end %>
   <% end %>
 
@@ -18,8 +18,10 @@
   <label for="name">Name:<label>
   <input type="text" name="name">
 
+  <label for="price">Price:<label>
+  <input type="text" name="price">
+
   <input type="submit" value="Add Console To Wishlist">
 </form>
-<br> 
-<h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>
-<h2><a href="/consoles/owned">Go to your owned consoles list</a></h2>
+<br>
+<h2><a href="/users/<%= @user.id %>">Return to your homepage</a> &nbsp &nbsp <a href="/consoles/owned">Go to your owned consoles list</a></h2>

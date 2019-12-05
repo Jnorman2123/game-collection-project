@@ -1,0 +1,24 @@
+<h1>This is your game wishlist</h1>
+
+<h2>Add purchased games to your owned list</h2>
+<br>
+<form method="POST" action="/games/owned">
+  <% @games.each do |game| %>
+    <% if game.user_id == nil %>
+    <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>"><%= game.name %></input><br>
+    <% end %>
+  <% end %>
+
+  <input type="submit" value="Add Selected Game(s) to Owned">
+</form>
+<br>
+<h2>Add a new game to your wishlist</h2>
+<form method="POST" action="/games/wishlist">
+
+  <label for="name">Name:<label>
+  <input type="text" name="name">
+
+  <input type="submit" value="Add Game To Wishlist">
+</form>
+<br>
+<h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>

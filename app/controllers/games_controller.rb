@@ -31,13 +31,18 @@ class GamesController < ApplicationController
 
   post '/games/owned' do
     redirect_if_not_logged_in
-    if game = Game.find_by_id(params[:game_id])
+    game = Game.find_by_id(params[:game_id])
+    if game && params[:console_id]
+      binding.pry
       game.console_id = params[:console_id]
       game.owned = true
       game.save
       redirect "/games/owned"
+    elsif !params[:console_id]
+      incomplete_form
+      redirect "/games/wishlist"
     else
-      if !params[:name].empty?
+      if !params[:name].empty? && params[:console_id]
         new_game = Game.new(params)
         new_game.user_id = current_user.id
         new_game.owned = true

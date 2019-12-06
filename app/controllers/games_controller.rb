@@ -15,6 +15,7 @@ class GamesController < ApplicationController
       game.save
       redirect "/games/wishlist"
     else
+      incomplete_form
       redirect "/games/wishlist"
     end
   end
@@ -41,6 +42,7 @@ class GamesController < ApplicationController
         new_game.save
         redirect "/games/owned"
       else
+        incomplete_form
         redirect "/games/owned"
       end
     end

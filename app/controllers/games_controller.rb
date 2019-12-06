@@ -54,10 +54,25 @@ class GamesController < ApplicationController
   get '/games/:id' do
     redirect_if_not_logged_in
     @game = Game.find_by_id(params[:id])
+    @owned_consoles = Console.owned_consoles(current_user.consoles)
     if @game.owned == true
       erb :"/games/owned_show"
     elsif @game.owned == false
       erb :"/games/wishlist_show"
+    end
+  end
+
+  patch '/games/:id' do
+    redirect_if_not_logged_in
+    @game = Game.find_by_id(params[:id])
+    @owned_consoles = Console.owned_consoles(current_user.consoles)
+    binding.pry
+    if @game.owned == true
+      @game.update(name: params[:name])
+      redirect '/games/owned'
+    else
+      @game.update(name: params[:name], price: params[:price])
+      redirect '/games/wishlist'
     end
   end
 

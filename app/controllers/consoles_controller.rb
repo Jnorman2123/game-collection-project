@@ -53,6 +53,18 @@ class ConsolesController < ApplicationController
     end
   end
 
+  patch '/consoles/:id' do
+    redirect_if_not_logged_in
+    @console = Console.find_by_id(params[:id])
+    if @console.owned == true
+      @console.update(name: params[:name])
+      redirect '/consoles/owned'
+    else
+      @console.update(name: params[:name])
+      redirect '/consoles/wishlist'
+    end
+  end
+
   delete '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])

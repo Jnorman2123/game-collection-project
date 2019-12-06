@@ -8,5 +8,13 @@
 <form action="/consoles/<%= @console.id %>" method="POST">
   <input type="hidden" id="hidden" name="_method" value="DELETE">
   <input type="submit" value="Remove">
+</form>
 
+<h2>Edit this console</h2>
+
+<form action="/consoles/<%= @console.id %>" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="PATCH">
+  <label for="name">Name:</label>
+  <input type="text" name="name">
+  <input type="submit" value="Edit">
 </form>

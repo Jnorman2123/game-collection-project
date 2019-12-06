@@ -25,6 +25,7 @@ class UsersController < ApplicationController
     if !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
       user = User.new(params)
       user.save
+      flash[:notice] = "Congrats #{user.name} you have successfully signed up!"
       redirect 'users/login'
     else
       incomplete_form

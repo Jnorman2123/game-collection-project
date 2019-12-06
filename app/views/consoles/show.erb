@@ -2,7 +2,7 @@
 
 <h3><%= @console.name %></h3>
 
-<% if @console.user_id != nil %>
+<% if @console.owned == true %>
   <h2>You currently own this console</h2>
   <h2>Remove this console from owned list</h2>
 
@@ -14,7 +14,7 @@
   <br>
   <h3><a href="/consoles/owned">Return to your owned consoles list</a></h3>
 <% end  %>
-<% if @console.user_id == nil %>
+<% if @console.owned == false %>
   <h2>This console is on your wishlist</h2>
   <h2>Remove this console from wishlist</h2>
 
@@ -27,4 +27,3 @@
   <h3><a href="/consoles/wishlist">Return to your consoles wishlist</a></h3>
 <% end %>
 <h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>
-

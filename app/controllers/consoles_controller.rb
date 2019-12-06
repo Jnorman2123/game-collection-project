@@ -30,13 +30,14 @@ class ConsolesController < ApplicationController
   post '/consoles/owned' do
     redirect_if_not_logged_in
     if console = Console.find_by_id(params[:console_id])
-      console.user_id = current_user.id
+      console.owned = true
       console.save
       redirect :"/consoles/owned"
     else
       if !params[:name].empty?
         new_console = Console.create(params)
         new_console.user_id = current_user.id
+        new_console.owned = true
         new_console.save
         redirect :"/consoles/owned"
       else
@@ -56,7 +57,7 @@ class ConsolesController < ApplicationController
   delete '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
-    if @console.user_id != nil
+    if @console.owned == true
       @console.delete
       redirect '/consoles/owned'
     else

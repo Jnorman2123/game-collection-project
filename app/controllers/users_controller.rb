@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       user.save
       redirect 'users/login'
     else
-      flash[:notice] = "Please fill in all fields."
+      incomplete_form
       redirect '/users/signup'
     end
   end

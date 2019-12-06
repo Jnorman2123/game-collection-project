@@ -37,5 +37,9 @@ class ApplicationController < Sinatra::Base
         redirect "users/#{current_user.id}"
       end
     end
+
+    def incomplete_form
+      flash[:notice] = "Please fill in all fields."
+    end
   end
 end

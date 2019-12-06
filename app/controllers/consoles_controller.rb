@@ -14,6 +14,7 @@ class ConsolesController < ApplicationController
       console.save
       redirect "/consoles/wishlist"
     else
+      incomplete_form
       redirect "/consoles/wishlist"
     end
   end
@@ -38,6 +39,7 @@ class ConsolesController < ApplicationController
         new_console.save
         redirect :"/consoles/owned"
       else
+        incomplete_form
         redirect :"/consoles/owned"
       end
     end

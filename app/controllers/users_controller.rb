@@ -11,6 +11,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect "/users/#{user.id}"
     else
+      flash[:notice] = "Invalid name or password"
       redirect '/users/login'
     end
   end
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
       user.save
       redirect 'users/login'
     else
+      flash[:notice] = "Please fill in all fields."
       redirect '/users/signup'
     end
   end

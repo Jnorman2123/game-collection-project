@@ -8,9 +8,8 @@ class ConsolesController < ApplicationController
 
   post '/consoles/wishlist' do
     redirect_if_not_logged_in
-    console = Console.new(params)
+    console = current_user.consoles.build(params)
     if !console.name.empty? && !console.price.empty?
-      console.user_id = current_user.id
       console.save
       redirect "/consoles/wishlist"
     else
@@ -21,7 +20,7 @@ class ConsolesController < ApplicationController
 
   get '/consoles/owned' do
     redirect_if_not_logged_in
-    @consoles = current_user.consoles
+    @owned_consoles = Console.owned_consoles(current_user.consoles)
     erb :"/consoles/owned"
   end
 
@@ -33,8 +32,7 @@ class ConsolesController < ApplicationController
       redirect :"/consoles/owned"
     else
       if !params[:name].empty?
-        new_console = Console.create(params)
-        new_console.user_id = current_user.id
+        new_console = current_user.consoles.build(params)
         new_console.owned = true
         new_console.save
         redirect :"/consoles/owned"
@@ -48,7 +46,11 @@ class ConsolesController < ApplicationController
   get '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
-    erb :"/consoles/show"
+    if @console.owned == true
+      erb :"/consoles/owned_show"
+    elsif @console.owned == false
+      erb :"/consoles/wishlist_show"
+    end
   end
 
   delete '/consoles/:id' do

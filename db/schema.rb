@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191206004032) do
+ActiveRecord::Schema.define(version: 20191206005919) do
 
   create_table "consoles", force: :cascade do |t|
     t.string  "name"
     t.integer "user_id"
     t.string  "price"
-    t.boolean "owned"
+    t.boolean "owned",   default: false
   end
 
   create_table "games", force: :cascade do |t|
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20191206004032) do
     t.string  "price"
     t.integer "console_id"
     t.integer "user_id"
-    t.boolean "owned"
+    t.boolean "owned",      default: false
   end
 
   create_table "users", force: :cascade do |t|

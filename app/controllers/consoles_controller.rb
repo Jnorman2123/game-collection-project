@@ -3,7 +3,7 @@ class ConsolesController < ApplicationController
   get '/consoles/wishlist' do
     redirect_if_not_logged_in
     @user = current_user
-    @consoles = Console.all
+    @consoles = @user.consoles
     erb :"/consoles/wishlist"
   end
 
@@ -11,6 +11,8 @@ class ConsolesController < ApplicationController
     redirect_if_not_logged_in
     console = Console.new(params)
     if !console.name.empty? && !console.price.empty?
+      console.user_id = current_user.id
+      console.owned = true
       console.save
       redirect "/consoles/wishlist"
     else
@@ -22,7 +24,7 @@ class ConsolesController < ApplicationController
   get '/consoles/owned' do
     redirect_if_not_logged_in
     @user = current_user
-    @consoles = Console.all
+    @consoles = @user.consoles
     erb :"/consoles/owned"
   end
 

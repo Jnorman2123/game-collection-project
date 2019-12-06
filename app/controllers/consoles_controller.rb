@@ -60,7 +60,7 @@ class ConsolesController < ApplicationController
       @console.update(name: params[:name])
       redirect '/consoles/owned'
     else
-      @console.update(name: params[:name])
+      @console.update(name: params[:name], price: params[:price])
       redirect '/consoles/wishlist'
     end
   end

@@ -14,7 +14,12 @@
 
 <form action="/consoles/<%= @console.id %>" method="POST">
   <input type="hidden" id="hidden" name="_method" value="PATCH">
+
   <label for="name">Name:</label>
   <input type="text" name="name">
+
+  <label for="price">Price:</label>
+  <input type="text" name="price">
+
   <input type="submit" value="Edit">
 </form>

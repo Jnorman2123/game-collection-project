@@ -1,0 +1,12 @@
+<h1>Show page for this game</h1>
+
+<h3><%= @game.name %></h3>
+
+<h2>You currently own this game</h2>
+<h2>Remove this game from owned list</h2>
+
+<form action="/games/<%= @game.id %>" method="POST">
+  <input type="hidden" id="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Remove">
+
+</form>

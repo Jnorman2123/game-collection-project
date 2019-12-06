@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     user = User.find_by_name(params[:name])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
+      flash[:notice] = "Welcome to your homepage #{user.name}!"
       redirect "/users/#{user.id}"
     else
       flash[:notice] = "Invalid name or password"

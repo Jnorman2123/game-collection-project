@@ -3,16 +3,18 @@
 <h2>Add purchased games to your owned list</h2>
 <br>
 <form method="POST" action="/games/owned">
-  <% @games.each do |game| %>
-    <% if game.owned == false %>
-    <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>">&nbsp<a href="/games/<%= game.id %>"><%= game.name %></a> Price: $<%= game.price %></input><br>
-    <% end %>
+  <% @wishlist_games.each do |game| %>
+    <input type="radio" name="game_id" id="<%= game.id %>" value="<%= game.id %>">&nbsp
+    <a href="/games/<%= game.id %>"><%= game.name %></a> Price: $<%= game.price %>
+    </input>
+    <br>
   <% end %>
   <h3>Select which console the game is on</h3>
-  <% @consoles.each do |console| %>
-    <% if console.owned == true %>
-      <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
-    <% end %>
+  <% @owned_consoles.each do |console| %>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp
+    <a href="/consoles/<%= console.id %>"><%= console.name %></a>
+    </input>
+    <br>
   <% end %>
 
   <input type="submit" value="Add Selected Game(s) to Owned">

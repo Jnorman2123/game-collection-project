@@ -3,10 +3,11 @@
 <h2>Add purchased consoles to your owned list</h2>
 <br>
 <form method="POST" action="/consoles/owned">
-  <% @consoles.each do |console| %>
-    <% if console.owned == false %>
-    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a> Price: $<%= console.price %></input><br>
-    <% end %>
+  <% @wishlist_consoles.each do |console| %>
+    <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp
+    <a href="/consoles/<%= console.id %>"><%= console.name %></a> Price: $<%= console.price %>
+    </input>
+    <br>
   <% end %>
 
   <input type="submit" value="Add Selected Console(s) to Owned">

@@ -1,9 +1,7 @@
 <h1>These are your games</h1>
 
-<% @games.each do |game| %>
-  <% if game.owned == true %>
+<% @ownedgames.each do |game| %>
     <a href="/games/<%= game.id %>"><%= game.name%></a><br>
-  <% end %>
 <% end %>
 <br>
 <h2>Add a new game to your owned list</h2>

@@ -2,8 +2,7 @@ class ConsolesController < ApplicationController
 
   get '/consoles/wishlist' do
     redirect_if_not_logged_in
-    @user = current_user
-    @consoles = @user.consoles
+    @wishlist_consoles = Console.wishlist_consoles(current_user.consoles)
     erb :"/consoles/wishlist"
   end
 
@@ -22,8 +21,7 @@ class ConsolesController < ApplicationController
 
   get '/consoles/owned' do
     redirect_if_not_logged_in
-    @user = current_user
-    @consoles = @user.consoles
+    @consoles = current_user.consoles
     erb :"/consoles/owned"
   end
 
@@ -49,7 +47,6 @@ class ConsolesController < ApplicationController
 
   get '/consoles/:id' do
     redirect_if_not_logged_in
-    @user = current_user
     @console = Console.find_by_id(params[:id])
     erb :"/consoles/show"
   end

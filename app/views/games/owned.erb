@@ -1,7 +1,7 @@
 <h1>These are your games</h1>
 
 <% @games.each do |game| %>
-  <% if game.user_id != nil %>
+  <% if game.owned == true %>
     <a href="/games/<%= game.id %>"><%= game.name%></a><br>
   <% end %>
 <% end %>
@@ -10,7 +10,7 @@
 <form method="POST" action="/games/owned">
 
   <% @consoles.each do |console| %>
-    <% if console.user_id != nil %>
+    <% if console.owned == true %>
       <input type="radio" name="console_id" id="<%= console.id %>" value="<%= console.id %>">&nbsp<a href="/consoles/<%= console.id %>"><%= console.name %></a></input><br>
     <% end %>
   <% end %>

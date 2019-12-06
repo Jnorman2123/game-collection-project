@@ -25,6 +25,18 @@
         <%= yield %>
 
       <footer class="branding">
+        <h4>
+          <a href="/consoles/wishlist">Console Wishlist</a>&nbsp
+          <a href="/consoles/owned">Owned Console(s)</a>&nbsp
+
+          <a href="/games/wishlist">Game Wishlist</a>&nbsp
+          <a href="/games/owned">Owned Game(s)</a>&nbsp
+
+          <a href="/users/home">User Home Page</a>
+        </h4>
+        <form method="POST" action="/users/logout">
+          <input type="submit" value="Log Out">
+        </form>
         <small>&copy; 2019 <strong>GameCollectionProject</strong></small>
       </footer>
     </div>

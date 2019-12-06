@@ -2,7 +2,7 @@
 
 <h3><%= @game.name %></h3>
 
-<% if @game.user_id != nil %>
+<% if @game.owned == true %>
   <h2>You currently own this game</h2>
   <h2>Remove this game from owned list</h2>
 
@@ -11,19 +11,13 @@
     <input type="submit" value="Remove">
 
   </form>
-  <br>
-  <h3><a href="/games/owned">Return to your owned games list</a></h3>
 <% end  %>
-<% if @game.user_id == nil %>
+<% if @game.owned != true %>
   <h2>This game is on your wishlist</h2>
   <h2>Remove this game from wishlist</h2>
 
   <form action="/games/<%= @game.id %>" method="POST">
     <input type="hidden" id="hidden" name="_method" value="DELETE">
     <input type="submit" value="Remove">
-
   </form>
-  <br>
-  <h3><a href="/games/wishlist">Return to your games wishlist</a></h3>
 <% end %>
-<h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>

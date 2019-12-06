@@ -11,8 +11,6 @@
     <input type="submit" value="Remove">
 
   </form>
-  <br>
-  <h3><a href="/consoles/owned">Return to your owned consoles list</a></h3>
 <% end  %>
 <% if @console.owned != true %>
   <h2>This console is on your wishlist</h2>
@@ -23,7 +21,4 @@
     <input type="submit" value="Remove">
 
   </form>
-  <br>
-  <h3><a href="/consoles/wishlist">Return to your consoles wishlist</a></h3>
 <% end %>
-<h2><a href="/users/<%= @user.id %>">Return to your homepage</a></h2>

@@ -12,7 +12,6 @@ class ConsolesController < ApplicationController
     console = Console.new(params)
     if !console.name.empty? && !console.price.empty?
       console.user_id = current_user.id
-      console.owned = true
       console.save
       redirect "/consoles/wishlist"
     else

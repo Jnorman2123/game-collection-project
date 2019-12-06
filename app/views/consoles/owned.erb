@@ -1,11 +1,11 @@
 <h1>These are your consoles</h1>
 
 <% @consoles.each do |console| %>
-  <% if console.user_id != nil %>
+  <% if console.owned == true %>
     <a href="/consoles/<%= console.id %>"><%= console.name%></a><br>
   <% end %>
 <% end %>
-<br> 
+<br>
 <h2>Add a new console to your owned list</h2>
 <form method="POST" action="/consoles/owned">
 

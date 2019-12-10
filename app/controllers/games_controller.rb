@@ -52,8 +52,10 @@ class GamesController < ApplicationController
 
   get '/games/:id' do
     redirect_if_not_logged_in
+    binding.pry
     set_game
     @owned_consoles = Console.owned_consoles(current_user.consoles)
+    validate_user(@game)
     if owned?
       erb :"/games/owned_show"
     else 
@@ -65,6 +67,7 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     set_game
     @owned_consoles = Console.owned_consoles(current_user.consoles)
+    validate_user(@game)
     if owned?
       @game.update(name: params[:name])
       redirect '/games/owned'
@@ -77,6 +80,7 @@ class GamesController < ApplicationController
   delete '/games/:id' do
     redirect_if_not_logged_in
     set_game
+    validate_user(@game)
     if owned?
       @game.delete
       redirect '/games/owned'

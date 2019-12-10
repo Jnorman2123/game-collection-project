@@ -68,29 +68,37 @@ class GamesController < ApplicationController
 
   patch '/games/:id' do
     redirect_if_not_logged_in
-    set_game
-    @owned_consoles = Console.owned_consoles(current_user.consoles)
-    validate_user(@game)
-    if owned?
-      @game.update(name: params[:name])
-      redirect '/games/owned'
+    if set_game
+      @owned_consoles = Console.owned_consoles(current_user.consoles)
+      validate_user(@game)
+      if owned?
+        @game.update(name: params[:name])
+        redirect '/games/owned'
+      else
+        @game.update(name: params[:name], price: params[:price])
+        redirect '/games/wishlist'
+      end
     else
-      @game.update(name: params[:name], price: params[:price])
-      redirect '/games/wishlist'
-    end
+      flash[:notice] = "Game does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
   end
 
   delete '/games/:id' do
     redirect_if_not_logged_in
-    set_game
-    validate_user(@game)
-    if owned?
-      @game.delete
-      redirect '/games/owned'
+    if set_game
+      validate_user(@game)
+      if owned?
+        @game.delete
+        redirect '/games/owned'
+      else
+        @game.delete
+        redirect '/games/wishlist'
+      end
     else
-      @game.delete
-      redirect '/games/wishlist'
-    end
+      flash[:notice] = "Game does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
   end
 
   private 

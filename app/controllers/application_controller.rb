@@ -48,5 +48,10 @@ class ApplicationController < Sinatra::Base
         redirect "/users/#{current_user.id}"
       end
     end 
+
+    def invalid_item(item)
+      flash[:notice] = "#{item} does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
   end
 end

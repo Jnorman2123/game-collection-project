@@ -61,8 +61,7 @@ class GamesController < ApplicationController
         erb :"/games/wishlist_show"
       end
     else 
-      flash[:notice] = "Game does not exist."
-      redirect "/users/#{current_user.id}"
+      invalid_item("Game")
     end 
   end
 
@@ -79,8 +78,7 @@ class GamesController < ApplicationController
         redirect '/games/wishlist'
       end
     else
-      flash[:notice] = "Game does not exist."
-      redirect "/users/#{current_user.id}"
+      invalid_item("Game")
     end 
   end
 
@@ -96,8 +94,7 @@ class GamesController < ApplicationController
         redirect '/games/wishlist'
       end
     else
-      flash[:notice] = "Game does not exist."
-      redirect "/users/#{current_user.id}"
+      invalid_item("Game")
     end 
   end
 

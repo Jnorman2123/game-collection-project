@@ -44,7 +44,8 @@ class ConsolesController < ApplicationController
   end
 
   get '/consoles/:id' do
-    redirect_if_not_logged_in
+    redirect_if_not_logged_in 
+    binding.pry
     @console = Console.find_by_id(params[:id])
     validate_user(@console)
     if @console.owned == true

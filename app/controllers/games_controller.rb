@@ -52,15 +52,18 @@ class GamesController < ApplicationController
 
   get '/games/:id' do
     redirect_if_not_logged_in
-    binding.pry
-    set_game
-    @owned_consoles = Console.owned_consoles(current_user.consoles)
-    validate_user(@game)
-    if owned?
-      erb :"/games/owned_show"
+    if set_game
+      @owned_consoles = Console.owned_consoles(current_user.consoles)
+      validate_user(@game)
+      if owned?
+        erb :"/games/owned_show"
+      else 
+        erb :"/games/wishlist_show"
+      end
     else 
-      erb :"/games/wishlist_show"
-    end
+      flash[:notice] = "Game does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
   end
 
   patch '/games/:id' do

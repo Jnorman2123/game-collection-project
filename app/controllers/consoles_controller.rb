@@ -46,9 +46,10 @@ class ConsolesController < ApplicationController
   get '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
+    validate_user(@console)
     if @console.owned == true
       erb :"/consoles/owned_show"
-    elsif @console.owned == false
+    else
       erb :"/consoles/wishlist_show"
     end
   end
@@ -56,6 +57,7 @@ class ConsolesController < ApplicationController
   patch '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
+    validate_user(@console)
     if @console.owned == true
       @console.update(name: params[:name])
       redirect '/consoles/owned'
@@ -68,11 +70,12 @@ class ConsolesController < ApplicationController
   delete '/consoles/:id' do
     redirect_if_not_logged_in
     @console = Console.find_by_id(params[:id])
+    validate_user(@console)
     if @console.owned == true
       @console.delete
       redirect '/consoles/owned'
     else
-      @console.delete
+       @console.delete
       redirect '/consoles/wishlist'
     end
   end

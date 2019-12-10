@@ -41,5 +41,12 @@ class ApplicationController < Sinatra::Base
     def incomplete_form
       flash[:notice] = "Please fill in all fields."
     end
+
+    def validate_user(item) 
+      if item.user_id != current_user.id 
+        flash[:notice] = "You can only interact with consoles associated with your account."
+        redirect "/users/#{current_user.id}"
+      end
+    end 
   end
 end

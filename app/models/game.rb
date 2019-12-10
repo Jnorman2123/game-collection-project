@@ -9,4 +9,5 @@ class Game < ActiveRecord::Base
   def self.wishlist_games(games)
     games.select{|game| game.owned == false}
   end
+
 end

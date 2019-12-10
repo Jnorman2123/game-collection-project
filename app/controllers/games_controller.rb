@@ -28,7 +28,6 @@ class GamesController < ApplicationController
 
   post '/games/owned' do
     redirect_if_not_logged_in
-    binding.pry
     game = current_user.games.find_by_id(params[:game_id])
     if game && params[:console_id]
       game.console_id = params[:console_id]
@@ -53,21 +52,20 @@ class GamesController < ApplicationController
 
   get '/games/:id' do
     redirect_if_not_logged_in
-    @game = Game.find_by_id(params[:id])
+    set_game
     @owned_consoles = Console.owned_consoles(current_user.consoles)
-    if @game.owned == true
+    if owned?
       erb :"/games/owned_show"
-    elsif @game.owned == false
+    else 
       erb :"/games/wishlist_show"
     end
   end
 
   patch '/games/:id' do
     redirect_if_not_logged_in
-    @game = Game.find_by_id(params[:id])
+    set_game
     @owned_consoles = Console.owned_consoles(current_user.consoles)
-    binding.pry
-    if @game.owned == true
+    if owned?
       @game.update(name: params[:name])
       redirect '/games/owned'
     else
@@ -78,8 +76,8 @@ class GamesController < ApplicationController
 
   delete '/games/:id' do
     redirect_if_not_logged_in
-    @game = Game.find_by_id(params[:id])
-    if @game.owned == true
+    set_game
+    if owned?
       @game.delete
       redirect '/games/owned'
     else
@@ -87,4 +85,14 @@ class GamesController < ApplicationController
       redirect '/games/wishlist'
     end
   end
+
+  private 
+
+  def set_game 
+    @game = Game.find_by_id(params[:id])
+  end 
+
+  def owned? 
+    @game.owned
+  end 
 end

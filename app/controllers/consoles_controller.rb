@@ -45,70 +45,78 @@ class ConsolesController < ApplicationController
 
   get '/consoles/:id' do
     redirect_if_not_logged_in 
-    binding.pry
-    @console = Console.find_by_id(params[:id])
-    validate_user(@console)
-    if @console.owned == true
-      erb :"/consoles/owned_show"
-    else
-      erb :"/consoles/wishlist_show"
-    end
+    if set_console
+      validate_console_user
+      if owned?
+        erb :"/consoles/owned_show"
+      else
+        erb :"/consoles/wishlist_show"
+      end
+    else 
+      invalid_console 
+    end 
   end
 
   patch '/consoles/:id' do
     redirect_if_not_logged_in
-    @console = Console.find_by_id(params[:id])
-    validate_user(@console)
-    if @console.owned == true
-      @console.update(name: params[:name])
-      redirect '/consoles/owned'
-    else
-      @console.update(name: params[:name], price: params[:price])
-      redirect '/consoles/wishlist'
-    end
+    if set_console 
+      validate_console_user
+      if owned?
+        update_console
+        redirect '/consoles/owned'
+      else
+        update_console
+        redirect '/consoles/wishlist'
+      end
+    else 
+      invalid_console 
+    end 
   end
 
   delete '/consoles/:id' do
     redirect_if_not_logged_in
-    @console = Console.find_by_id(params[:id])
-    validate_user(@console)
-    if @console.owned == true
-      @console.delete
-      redirect '/consoles/owned'
-    else
-       @console.delete
-      redirect '/consoles/wishlist'
-    end
+    if set_console 
+      validate_console_user
+      if owned?
+        delete_console
+        redirect '/consoles/owned'
+      else
+        delete_console
+        redirect '/consoles/wishlist'
+      end
+    else 
+      invalid_console 
+    end 
   end
 
   private 
 
-  def set_game 
-    @game = Game.find_by_id(params[:id])
+  def set_console 
+    @console = Console.find_by_id(params[:id])
   end 
 
   def owned? 
-    @game.owned
+    @console.owned
   end 
 
-  def update_game 
+  def update_console 
     params.delete("_method")
-    @game.update(params)
+    @console.update(params)
   end 
 
-  def delete_game 
-    @game.delete
+  def delete_console 
+    @console.delete
   end 
 
-  def validate_game_user
-      if @game.user_id != current_user.id 
-        flash[:notice] = "You can only interact with games associated with your account."
+  def validate_console_user
+      if @console.user_id != current_user.id 
+        flash[:notice] = "You can only interact with consoles associated with your account."
         redirect "/users/#{current_user.id}"
       end
     end 
 
-    def invalid_game
-      flash[:notice] = "Game does not exist."
+    def invalid_console
+      flash[:notice] = "Console does not exist."
       redirect "/users/#{current_user.id}"
     end 
 end

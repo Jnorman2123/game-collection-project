@@ -29,15 +29,15 @@ class UsersController < ApplicationController
     elsif User.find_by_email(params[:email])
       flash[:notice] = "An account with that email already exists."
       redirect '/users/signup'
-    elsif !params[:name].empty? && !params[:email].empty? && !params[:password].empty?
+    elsif params[:name].empty? || params[:email].empty? || params[:password].empty?
+      incomplete_form
+      redirect '/users/signup'
+    else
       user = User.new(params)
       user.save
       session[:user_id] = user.id
       flash[:notice] = "Congrats #{user.name} you have successfully signed up!"
       redirect "/users/#{user.id}"
-    else
-      incomplete_form
-      redirect '/users/signup'
     end
   end
 

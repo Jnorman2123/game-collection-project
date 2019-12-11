@@ -2,7 +2,7 @@ class GamesController < ApplicationController
 
   get '/games/wishlist' do
     redirect_if_not_logged_in
-    @owned_consoles = Console.owned_consoles(current_user.consoles)
+    owned_consoles
     @wishlist_games = Game.wishlist_games(current_user.games)
     erb :"/games/wishlist"
   end
@@ -21,7 +21,7 @@ class GamesController < ApplicationController
 
   get '/games/owned' do
     redirect_if_not_logged_in
-    @owned_consoles = Console.owned_consoles(current_user.consoles)
+    owned_consoles
     @owned_games = Game.owned_games(current_user.games)
     erb :"/games/owned"
   end
@@ -53,7 +53,7 @@ class GamesController < ApplicationController
   get '/games/:id' do
     redirect_if_not_logged_in
     if set_game
-      @owned_consoles = Console.owned_consoles(current_user.consoles)
+      owned_consoles
       validate_game_user
       erb :"/games/show"
     else 
@@ -64,7 +64,7 @@ class GamesController < ApplicationController
   patch '/games/:id' do
     redirect_if_not_logged_in
     if set_game
-      @owned_consoles = Console.owned_consoles(current_user.consoles)
+      owned_consoles
       validate_game_user
       if owned?
         update_game
@@ -123,5 +123,9 @@ class GamesController < ApplicationController
     def invalid_game
       flash[:notice] = "Game does not exist."
       redirect "/users/#{current_user.id}"
+    end 
+
+    def owned_consoles 
+      @owned_consoles = Console.owned_consoles(current_user.consoles)
     end 
 end

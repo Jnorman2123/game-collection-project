@@ -34,9 +34,11 @@
 
           <a href="/users/home">User Home Page</a>
         </h4>
-        <form method="POST" action="/users/logout">
-          <input type="submit" value="Log Out">
-        </form>
+        <% if logged_in? %>
+          <form method="POST" action="/users/logout">
+            <input type="submit" value="Log Out">
+          </form>
+        <% end %>
         <small>&copy; 2019 <strong>GameCollectionProject</strong></small>
       </footer>
     </div>

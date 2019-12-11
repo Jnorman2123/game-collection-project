@@ -80,4 +80,35 @@ class ConsolesController < ApplicationController
       redirect '/consoles/wishlist'
     end
   end
+
+  private 
+
+  def set_game 
+    @game = Game.find_by_id(params[:id])
+  end 
+
+  def owned? 
+    @game.owned
+  end 
+
+  def update_game 
+    params.delete("_method")
+    @game.update(params)
+  end 
+
+  def delete_game 
+    @game.delete
+  end 
+
+  def validate_game_user
+      if @game.user_id != current_user.id 
+        flash[:notice] = "You can only interact with games associated with your account."
+        redirect "/users/#{current_user.id}"
+      end
+    end 
+
+    def invalid_game
+      flash[:notice] = "Game does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
 end

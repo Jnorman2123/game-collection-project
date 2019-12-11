@@ -42,16 +42,5 @@ class ApplicationController < Sinatra::Base
       flash[:notice] = "Please fill in all fields."
     end
 
-    def validate_user(item) 
-      if item.user_id != current_user.id 
-        flash[:notice] = "You can only interact with consoles associated with your account."
-        redirect "/users/#{current_user.id}"
-      end
-    end 
-
-    def invalid_item(item)
-      flash[:notice] = "#{item} does not exist."
-      redirect "/users/#{current_user.id}"
-    end 
   end
 end

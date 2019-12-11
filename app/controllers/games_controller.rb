@@ -54,14 +54,14 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     if set_game
       @owned_consoles = Console.owned_consoles(current_user.consoles)
-      validate_user(@game)
+      validate_game_user
       if owned?
         erb :"/games/owned_show"
       else 
         erb :"/games/wishlist_show"
       end
     else 
-      invalid_item("Game")
+      invalid_game
     end 
   end
 
@@ -69,32 +69,32 @@ class GamesController < ApplicationController
     redirect_if_not_logged_in
     if set_game
       @owned_consoles = Console.owned_consoles(current_user.consoles)
-      validate_user(@game)
+      validate_game_user
       if owned?
-        @game.update(name: params[:name])
+        update_game
         redirect '/games/owned'
       else
-        @game.update(name: params[:name], price: params[:price])
+        update_game
         redirect '/games/wishlist'
       end
     else
-      invalid_item("Game")
+      invalid_game
     end 
   end
 
   delete '/games/:id' do
     redirect_if_not_logged_in
     if set_game
-      validate_user(@game)
+      validate_game_user
       if owned?
-        @game.delete
+        delete_game
         redirect '/games/owned'
       else
-        @game.delete
+        delete_game
         redirect '/games/wishlist'
       end
     else
-      invalid_item("Game")
+      invalid_game
     end 
   end
 
@@ -107,4 +107,25 @@ class GamesController < ApplicationController
   def owned? 
     @game.owned
   end 
+
+  def update_game 
+    params.delete("_method")
+    @game.update(params)
+  end 
+
+  def delete_game 
+    @game.delete
+  end 
+
+  def validate_game_user
+      if @game.user_id != current_user.id 
+        flash[:notice] = "You can only interact with games associated with your account."
+        redirect "/users/#{current_user.id}"
+      end
+    end 
+
+    def invalid_game
+      flash[:notice] = "Game does not exist."
+      redirect "/users/#{current_user.id}"
+    end 
 end

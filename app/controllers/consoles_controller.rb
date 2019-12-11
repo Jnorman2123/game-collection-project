@@ -29,16 +29,16 @@ class ConsolesController < ApplicationController
     if console = Console.find_by_id(params[:console_id])
       console.owned = true
       console.save
-      redirect :"/consoles/owned"
+      redirect "/consoles/owned"
     else
       if !params[:name].empty?
         new_console = current_user.consoles.build(params)
         new_console.owned = true
         new_console.save
-        redirect :"/consoles/owned"
+        redirect "/consoles/owned"
       else
         incomplete_form
-        redirect :"/consoles/owned"
+        redirect "/consoles/owned"
       end
     end
   end
@@ -47,11 +47,7 @@ class ConsolesController < ApplicationController
     redirect_if_not_logged_in 
     if set_console
       validate_console_user
-      if owned?
-        erb :"/consoles/owned_show"
-      else
-        erb :"/consoles/wishlist_show"
-      end
+      erb :"/consoles/show"
     else 
       invalid_console 
     end 
@@ -109,11 +105,11 @@ class ConsolesController < ApplicationController
   end 
 
   def validate_console_user
-      if @console.user_id != current_user.id 
-        flash[:notice] = "You can only interact with consoles associated with your account."
-        redirect "/users/#{current_user.id}"
-      end
-    end 
+    if @console.user_id != current_user.id 
+      flash[:notice] = "You can only interact with consoles associated with your account."
+      redirect "/users/#{current_user.id}"
+    end
+  end 
 
     def invalid_console
       flash[:notice] = "Console does not exist."

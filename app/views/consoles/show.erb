@@ -1,0 +1,47 @@
+<h1>Show page for this console</h1>
+
+<h3><%= @console.name %></h3>
+
+<% if owned? %>
+    <h2>You currently own this console</h2>
+    <h2>Remove this console from owned list</h2>
+
+    <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Remove">
+    </form>
+
+    <h2>Edit this console</h2>
+
+    <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="PATCH">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name">
+    
+    <input type="submit" value="Edit">
+    </form>
+
+<% else %>    
+    <h2>This console is on your wishlist</h2>
+    <h2>Remove this console from wishlist</h2>
+
+    <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Remove">
+    </form>
+
+    <h2>Edit this console</h2>
+
+    <form action="/consoles/<%= @console.id %>" method="POST">
+    <input type="hidden" id="hidden" name="_method" value="PATCH">
+
+    <label for="name">Name:</label>
+    <input type="text" name="name">
+
+    <label for="price">Price:</label>
+    <input type="text" name="price">
+
+    <input type="submit" value="Edit">
+    </form>
+<% end %>

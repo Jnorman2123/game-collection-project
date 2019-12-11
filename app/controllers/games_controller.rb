@@ -55,11 +55,7 @@ class GamesController < ApplicationController
     if set_game
       @owned_consoles = Console.owned_consoles(current_user.consoles)
       validate_game_user
-      if owned?
-        erb :"/games/owned_show"
-      else 
-        erb :"/games/wishlist_show"
-      end
+      erb :"/games/show"
     else 
       invalid_game
     end 
